@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <!-- devMode equals debug information and reload everything for every request -->
+    <constant name="struts.devMode" value="true" />
+    <constant name="struts.ui.theme" value="simple" />
+    <constant name="struts.action.excludePattern" value="/ws"/>
+
+    <package name="ServerClient" extends="struts-default">
+
+    <default-action-ref name="index" />
+
+    <global-results>
+        <result name="error">/error.jsp</result>
+    </global-results>
+
+    <!-- all exceptions not caught by the application will lead to error.jsp -->
+    <global-exception-mappings>
+        <exception-mapping exception="java.lang.Exception" result="error" />
+    </global-exception-mappings>
+
+    <!-- Index -->
+        <action name="index" class="action.Index" method="execute">
+            <result name="success">/index.jsp</result>
+        </action>
+
+    <!-- Sign up -->
+        <action name="signup">
+            <result>/register.jsp</result>
+        </action>
+
+    <!-- Register -->
+        <action name="register" class="action.Register" method="execute">
+            <result name="success">login.jsp</result>
+            <result name="invalidCredentials">index.jsp</result>
+            <result name="rip">swwOut.jsp</result>
+            <result name="usernameUsed">index.jsp</result>
+        </action>
+
+    <!-- Login -->
+        <action name="login">
+            <result>/login.jsp</result>
+        </action>
+
+        <action name="logout" class="action.Logout" method="execute">
+            <result>index.jsp</result>
+        </action>
+
+        <action name="checkLogin" class="action.Login" method="execute">
+            <result name="failed">login.jsp</result>
+            <result name="worked">menuPrincipal.jsp</result>
+            <result name="rip">swwOut.jsp</result>
+        </action>
+
+    <!-- Main Menu -->
+        <action name="menuPrincipal" class="action.MenuPrincipal" method="execute">
+            <result name="success">menuPrincipal.jsp</result>
+        </action>
+
+    <!-- Editor Menu -->
+        <action name="editorMenu" class="action.CheckPermissions" method="execute">
+            <result name="success">editorMenu.jsp</result>
+            <result name="failed">noPermission.jsp</result>
+            <result name="rip">sww.jsp</result>
+        </action>
+
+    <action name="editArtistName">
+        <result>editArtistName.jsp</result>
+    </action>
+
+    <action name="editArtistMenu" class="action.EditArtistMenu" method="execute">
+        <result name="worked">editArtistMenu.jsp</result>
+        <result name="failed">editArtistName.jsp</result>
+    </action>
+
+    <action name="editArtist" class="action.EditArtist" method="execute">
+        <result name="worked">menuPrincipal.jsp</result>
+        <result name="failed">editArtistName.jsp</result>
+        <result name="rip">sww.jsp</result>
+    </action>
+
+    <!-- Search Music Menu -->
+    <action name="searchMusicOptions">
+        <result>searchMusicOptions.jsp</result>
+    </action>
+
+        <!-- Create Music -->
+            <action name="createMusicInput">
+                <result>createMusicInput.jsp</result>
+            </action>
+
+            <action name="createMusic" class="action.CreateMusic" method="execute">
+                <result name="worked">menuPrincipal.jsp</result>
+                <result name="failed">sww.jsp</result>
+                <result name="rip">createMusicInput.jsp</result>
+            </action>
+
+        <!-- Create Publisher -->
+            <action name="createPublisherInput">
+                <result>createPublisherInput.jsp</result>
+            </action>
+
+            <action name="createPublisher" class="action.CreatePublisher" method="execute">
+                <result name="worked">menuPrincipal.jsp</result>
+                <result name="failed">sww.jsp</result>
+                <result name="rip">createPublisherInput.jsp</result>
+            </action>
+
+        <!-- Create Artist -->
+            <action name="createArtistInput">
+                <result>createArtistInput.jsp</result>
+            </action>
+
+            <action name="createArtist" class="action.CreateArtist" method="execute">
+                <result name="worked">menuPrincipal.jsp</result>
+                <result name="failed">sww.jsp</result>
+                <result name="rip">createArtistInput.jsp</result>
+            </action>
+
+        <!-- Create Album -->
+            <action name="createAlbumInput">
+                <result>createAlbumInput.jsp</result>
+            </action>
+    <!-- Edits -->
+        <!-- Edit Menu -->
+            <action name="editMenu">
+                <result>editMenu.jsp</result>
+            </action>
+        <!-- Edit Publisher -->
+            <action name="editPublisherName">
+                <result>editPublisherName.jsp</result>
+            </action>
+
+            <action name="editPublisherMenu" class="action.EditPublisherMenu" method="execute">
+                <result name="worked">editPublisherMenu.jsp</result>
+                <result name="failed">editPublisherName.jsp</result>
+            </action>
+
+            <action name="editPublisher" class="action.EditPublisher" method="execute">
+                <result name="worked">menuPrincipal.jsp</result>
+                <result name="failed">sww.jsp</result>
+                <result name="rip">editPublisherName.jsp</result>
+            </action>
+        <!-- Edit Album -->
+            <action name="editAlbumName">
+                <result>editAlbumName.jsp</result>
+            </action>
+
+            <action name="editAlbumMenu" class="action.EditAlbumMenu" method="execute">
+                <result name="worked">editAlbumMenu.jsp</result>
+                <result name="failed">editAlbumName.jsp</result>
+            </action>
+
+            <action name="editAlbum" class="action.EditAlbum" method="execute">
+                <result name="worked">menuPrincipal.jsp</result>
+                <result name="failed">sww.jsp</result>
+                <result name="rip">editAlbumName.jsp</result>
+            </action>
+        <!-- Edit Music -->
+            <action name="editMusicName">
+                <result>editMusicName.jsp</result>
+            </action>
+
+            <action name="editMusicMenu" class="action.EditMusicMenu" method="execute">
+                <result name="worked">editMusicMenu.jsp</result>
+                <result name="failed">editMusicName.jsp</result>
+            </action>
+
+            <action name="editMusic" class="action.EditMusic" method="execute">
+                <result name="worked">menuPrincipal.jsp</result>
+                <result name="failed">sww.jsp</result>
+                <result name="rip">editMusicMenu.jsp</result>
+            </action>
+    <!-- Connect Music Files -->
+        <action name="connectMenu" class="action.ConnectMenu" method="execute">
+            <result>connectMenu.jsp</result>
+        </action>
+
+        <action name="connect" class="action.Connect" method="execute">
+            <result name="success">menuPrincipal.jsp</result>
+            <result name="failed">sww.jsp</result>
+            <result name="rip">sww.jsp</result>
+        </action>
+
+
+    <!-- Browser Playback -->
+        <action name="playBrowser" class="action.GetMusic" method="execute">
+            <result name="redirect" type="redirect">${url}</result>
+        </action>
+
+        <action name="playMenu" class="action.ConnectMenu" method="execute">
+            <result name="success">playBrowser.jsp</result>
+            <result name="rip">sww.jsp</result>
+            <result name="failed">sww.jsp</result>
+        </action>
+
+    <!-- Dropbox Authentication -->
+        <action name="dropboxauth" class="action.DropboxAuth" method="execute">
+            <result name="redirect" type="redirect">${url}</result>
+        </action>
+
+        <action name="dropboxRedirect" class="action.DropboxAuthRedirect" method="execute">
+            <result name="success">menuPrincipal.jsp</result>
+            <result name="failed">sww.jsp</result>
+            <result name="failedLogin">register.jsp</result>
+            <result name="rip">sww.jsp</result>
+        </action>
+
+    <!-- Make Editor -->
+        <action name="makeEditorMenu" class="action.CheckPermissions" method="execute">
+            <result name="success">makeEditor.jsp</result>
+            <result name="failed">noPermission.jsp</result>
+            <result name="rip">sww.jsp</result>
+        </action>
+
+        <action name="makeEditor" class="action.MakeEditor" method="execute">
+            <result name="worked">menuPrincipal.jsp</result>
+            <result name="failed">sww.jsp</result>
+        </action>
+
+    <!-- Share Music -->
+        <action name="shareMusic">
+            <result>share.jsp</result>
+        </action>
+
+        <action name="share" class="action.Share" method="execute">
+            <result name="worked">menuPrincipal.jsp</result>
+            <result name="failed">sww.jsp</result>
+            <result name="rip">sww.jsp</result>
+        </action>
+
+    <!-- Make Critic -->
+        <action name="linkCritic">
+            <result>critic.jsp</result>
+        </action>
+
+        <action name="insertCritic" class="action.Critic" method="execute">
+            <result name="worked">menuPrincipal.jsp</result>
+            <result name="failed">critic.jsp</result>
+            <result name="rip">sww.jsp</result>
+        </action>
+
+    <!-- Searches -->
+        <!-- Search Artist -->
+            <action name="searchArtistInput">
+                <result>searchArtistInfo.jsp</result>
+            </action>
+
+            <action name="searchArtist" class="action.SearchArtist" method="execute">
+                <result name="rip">sww.jsp</result>
+                <result name="worked">showArtist.jsp</result>
+                <result name="workedP">showArtists.jsp</result>
+                <result name="failed">searchArtistInfo.jsp</result>
+            </action>
+
+        <!-- Search Music By Songwriter -->
+            <action name="searchBySongwriterInput">
+                <result>searchMusicSongwriterInfo.jsp</result>
+            </action>
+
+            <action name="showSongwriterMusic" class="action.SearchMusicsBySongwriter" method="execute">
+                <result name="worked">showSongwriterMusics.jsp</result>
+                <result name="failedNF">menuPrincipal.jsp</result>
+                <result name="rip">sww.jsp</result>
+                <result name="failed">menuPrincipal.jsp</result>
+            </action>
+        <!-- Search Music By Composer -->
+            <action name="searchByComposerInput">
+                <result>searchMusicComposerInfo.jsp</result>
+            </action>
+
+            <action name="showComposerMusic" class="action.SearchMusicsByComposer" method="execute">
+                <result name="worked">showComposerMusics.jsp</result>
+                <result name="failedNF">menuPrincipal.jsp</result>
+                <result name="rip">sww.jsp</result>
+                <result name="failed">menuPrincipal.jsp</result>
+            </action>
+
+        <!-- Search Music By Name -->
+            <action name="searchByNameInput">
+                <result>searchMusicNameInfo.jsp</result>
+            </action>
+
+            <action name="searchMusicByName" class="action.SearchMusicByName" method="execute">
+                <result name="worked">showMusic.jsp</result>
+                <result name="workedP">showMusics.jsp</result>
+                <result name="rip">sww.jsp</result>
+                <result name="failed">menuPrincipal.jsp</result>
+            </action>
+
+        <!-- Search Album Menu -->
+            <action name="searchAlbumOptions">
+                <result>searchAlbumOptions.jsp</result>
+            </action>
+
+        <!-- Search Album By Name -->
+            <action name="searchAlbumByNameInput">
+                <result>searchAlbumNameInfo.jsp</result>
+            </action>
+
+            <action name="searchAlbumByName" class="action.SearchAlbumByName" method="execute">
+                <result name="worked">showAlbum.jsp</result>
+                <result name="workedP">showAlbums.jsp</result>
+                <result name="rip">sww.jsp</result>
+                <result name="failed">menuPrincipal.jsp</result>
+            </action>
+
+        <!-- Search Album By Artist -->
+            <action name="searchAlbumByArtistInput">
+                <result>searchAlbumByArtistInfo.jsp</result>
+            </action>
+
+    <action name="createMenu">
+        <result>createMenu.jsp</result>
+    </action>
+
+    <action name="searchMenu">
+        <result>search.jsp</result>
+    </action>
+
+    <action name="searchAlbumByArtist" class="action.SearchAlbumByArtist" method="execute">
+        <result name="worked">showAlbums.jsp</result>
+        <result name="rip">sww.jsp</result>
+    </action>
+
+    <action name="createAlbum" class="action.CreateAlbum" method="execute">
+        <result name="worked">menuPrincipal.jsp</result>
+        <result name="failed">sww.jsp</result>
+        <result name="rip">createAlbumInput.jsp</result>
+    </action>
+
+    </package>
+</struts>
